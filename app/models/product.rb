@@ -1,6 +1,7 @@
 class Product < ApplicationRecord
   belongs_to :category
-  belongs_to :cart, optional: true
+
+  has_many :cart_products, class_name: '::CartProduct', dependent: :destroy
 
   validates :name, :code, presence: true
 
