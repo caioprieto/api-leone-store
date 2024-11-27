@@ -47,3 +47,21 @@ class Api::CartsController < ApplicationController
     params.require(:cart).permit(cart_products_attributes: [:id, :product_id, :quantidade_produto_carrinho])
   end
 end
+
+
+
+# Exemplo JSON
+# {
+#   "cart": {
+#     "cart_products_attributes": [
+#       {
+#         "product_id": 1,
+#         "quantidade_produto_carrinho": 1
+#       },
+#       {
+#         "product_id": 2,
+#         "quantidade_produto_carrinho": 1
+#       }
+#     ]
+#   }
+# }
