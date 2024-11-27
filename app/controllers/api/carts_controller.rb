@@ -1,20 +1,29 @@
 class Api::CartsController < ApplicationController
-  before_action :set_cart, only: :show
+  before_action :set_cart, only: %i[show update]
 
   def create
-    product_ids = cart_params[:cart_products_attributes].pluck(:product_id)
+    product_and_quantity = cart_params[:cart_products_attributes].pluck(:product_id, :quantidade_produto_carrinho)
 
-    if product_ids.blank?
-      render json: { error: 'É necessário fornecer pelo menos um produto' }, status: :unprocessable_entity
-      return
-    end
+    return if product_and_quantity.blank?
 
     @cart = Cart.new
 
     if @cart.save
-      @cart.add_products(product_ids.join(','))
+      @cart.save_products(product_and_quantity)
 
       render json: @cart, include: { cart_products: { include: :product } }, status: :created, serializer: CartSerializer
+    else
+      render json: @cart.errors, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    product_and_quantity = cart_params[:cart_products_attributes].pluck(:product_id, :quantidade_produto_carrinho)
+
+    return if product_and_quantity.blank?
+
+    if @cart.save
+      @cart.save_products(product_and_quantity)
     else
       render json: @cart.errors, status: :unprocessable_entity
     end
@@ -35,6 +44,6 @@ class Api::CartsController < ApplicationController
   end
 
   def cart_params
-    params.require(:cart).permit(cart_products_attributes: [:id, :product_id])
+    params.require(:cart).permit(cart_products_attributes: [:id, :product_id, :quantidade_produto_carrinho])
   end
 end
