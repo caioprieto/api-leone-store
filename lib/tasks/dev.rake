@@ -34,6 +34,7 @@ namespace :dev do
         category_id: ::Category.last.id,
         barcode: Faker::Barcode.ean(13),
         code: Faker::Number.unique.between(from: 10, to: 1000),
+        preço_final: Faker::Number.between(from: 100, to: 300)
       )
     end
   end
