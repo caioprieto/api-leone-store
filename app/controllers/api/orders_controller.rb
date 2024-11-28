@@ -1,5 +1,6 @@
 class Api::OrdersController < ApplicationController
   before_action :set_order, only: [:update, :show]
+  before_action :authorize, only: [:show]
 
   def create
     cart = Cart.find_by(id: params[:cart_id])
@@ -26,11 +27,11 @@ class Api::OrdersController < ApplicationController
 
     @order.save
 
-    render json: @order, status: :ok
+    render json: @order, status: :ok, serializer: OrderSerializer
   end
 
   def show
-    render json: @order, status: :ok
+    render json: @order, status: :ok, serializer: OrderSerializer
   end
 
   private
