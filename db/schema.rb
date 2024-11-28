@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_11_28_181033) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_28_210822) do
   create_table "addresses", force: :cascade do |t|
     t.string "street"
     t.string "cep"
@@ -58,6 +58,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_28_181033) do
     t.boolean "active_view_index"
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.integer "cart_id"
+    t.string "status", default: "pending", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "address_id"
+    t.index ["address_id"], name: "index_orders_on_address_id"
+    t.index ["cart_id"], name: "index_orders_on_cart_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name", null: false
     t.string "barcode"
@@ -89,6 +99,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_28_181033) do
   add_foreign_key "cart_products", "carts"
   add_foreign_key "cart_products", "products"
   add_foreign_key "carts", "users"
+  add_foreign_key "orders", "addresses"
+  add_foreign_key "orders", "carts"
   add_foreign_key "products", "carts"
   add_foreign_key "products", "categories"
 end

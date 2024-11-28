@@ -2,6 +2,8 @@ class Cart < ApplicationRecord
   has_many :cart_products, class_name: '::CartProduct', dependent: :destroy
   has_many :products, through: :cart_products
 
+  has_one :order
+
   belongs_to :user, class_name: '::User', optional: true
 
   accepts_nested_attributes_for :cart_products, allow_destroy: true
