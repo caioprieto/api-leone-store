@@ -1,6 +1,6 @@
 class Api::OrdersController < ApplicationController
   before_action :set_order, only: [:update, :show]
-  before_action :authorize, only: [:show]
+  before_action :authorize, only: [:update, :show]
 
   def create
     cart = Cart.find_by(id: params[:cart_id])

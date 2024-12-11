@@ -11,7 +11,7 @@ class Api::CartsController < ApplicationController
     if @cart.save
       @cart.save_products(product_and_quantity)
 
-      render json: @cart, include: { cart_products: { include: :product } }, status: :created, serializer: CartSerializer
+      render json: @cart, status: :created, serializer: CartSerializer
     else
       render json: @cart.errors, status: :unprocessable_entity
     end
@@ -24,6 +24,8 @@ class Api::CartsController < ApplicationController
 
     if @cart.save
       @cart.save_products(product_and_quantity)
+
+      render json: @cart, status: :ok, serializer: CartSerializer
     else
       render json: @cart.errors, status: :unprocessable_entity
     end
