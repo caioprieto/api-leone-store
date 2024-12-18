@@ -1,5 +1,5 @@
 class Api::ProductsController < ApplicationController
-  before_action :set_product, only: %i[show update destroy]
+  before_action :set_product, only: %i[show update destroy upload_image]
 
   def index
     @products = Product.search(params[:term]).order_by_name
@@ -31,6 +31,20 @@ class Api::ProductsController < ApplicationController
 
   def destroy
     @product.destroy
+  end
+
+  def upload_image
+    if params[:image].blank?
+      return render json: { error: 'Precisa enviar uma imagem!' }
+    end
+
+    @product.image.attach(params[:image])
+
+    if @product.image.attached?
+      render json: { message: 'Imagem salva com sucesso!', image_url: url_for(@product.image) }, status: :created
+    else
+      render json: { error: 'Falhou ao salvar a imagem!' }, status: :unprocessable_entity
+    end
   end
 
   private
