@@ -13,6 +13,7 @@ gem "tty-spinner", "~> 0.9.3"
 gem "bcrypt"
 gem "jwt"
 gem 'state_machines'
+gem 'state_machines-activerecord'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]

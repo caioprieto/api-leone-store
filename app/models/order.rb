@@ -4,9 +4,27 @@ class Order < ApplicationRecord
 
   before_validation :duplicate_order_cart_id, on: :create
 
+  state_machine :status, initial: :pending do
+    state :pending
+    state :confirmado
+    state :enviado
+
+    event :confirmar do
+      transition pending: :confirmado
+    end
+
+    event :enviar do
+      transition confirmado: :enviado
+    end
+
+    # after_transition on: :confirmar, do: :notificar_cliente
+    # after_transition to: :enviado, do: :gerar_rastreamento
+  end
+
   private
 
   def duplicate_order_cart_id
+    debugger
     tem_pedido = ::Cart.find_by(id: self.cart_id).order.id.present?
 
     if tem_pedido
@@ -15,38 +33,3 @@ class Order < ApplicationRecord
     true
   end
 end
-
-# state_machine :status, initial: :pendente do
-#   state :pendente
-#   state :confirmado
-#   state :enviado
-#   state :entregue
-#   state :cancelado
-
-#   event :confirmar do
-#     transition pendente: :confirmado
-#   end
-
-#   event :enviar do
-#     transition confirmado: :enviado
-#   end
-
-#   event :entregar do
-#     transition enviado: :entregue
-#   end
-
-#   event :estornar do
-#     transition confirmado: :pendente
-#   end
-
-#   event :cancelar do
-#     transition [:pendente, :confirmado] => :cancelado
-#   end
-
-#   after_transition on: :confirmar, do: :notificar_cliente
-#   after_transition to: :enviado, do: :gerar_rastreamento
-# end
-
-# def notificar_cliente
-#   debugger
-# end
