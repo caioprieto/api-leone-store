@@ -1,13 +1,14 @@
 class Api::OrdersController < ApplicationController
   before_action :set_order, only: [:update, :show]
-  before_action :authorize, only: [:update, :show]
+  before_action :authorize, only: [:create, :update, :show]
 
+  # POST /api/orders
   def create
     cart = Cart.find_by(id: params[:cart_id])
 
     return if cart.blank?
 
-    order = Order.new(cart: cart)
+    order = Order.new(cart: cart, user: @user)
 
     if order.save
       render json: order, status: :ok
@@ -16,6 +17,7 @@ class Api::OrdersController < ApplicationController
     end
   end
 
+    # PATCH /api/orders
   def update
     if address_params.present?
       if @order.address

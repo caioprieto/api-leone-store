@@ -3,4 +3,5 @@ class OrderSerializer < ActiveModel::Serializer
 
   belongs_to :cart
   belongs_to :address
+  belongs_to :user
 end
