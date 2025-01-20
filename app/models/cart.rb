@@ -1,10 +1,9 @@
 class Cart < ApplicationRecord
+  belongs_to :user, class_name: '::User', optional: true
+
   has_many :cart_products, class_name: '::CartProduct', dependent: :destroy
   has_many :products, through: :cart_products
-
-  has_one :order
-
-  belongs_to :user, class_name: '::User', optional: true
+  has_one :order, class_name: '::Order'
 
   accepts_nested_attributes_for :cart_products, allow_destroy: true
 
@@ -22,17 +21,17 @@ class Cart < ApplicationRecord
     end
 
     remove_product_without_quantity
-    calculate_total
+    calculate_subtotal
   end
 
-  def calculate_total
+  def calculate_subtotal
     value_total = 0
 
     products.each do |product|
       value_total += product.preço_final * cart_products.find_by(product_id: product.id).quantidade_produto_carrinho
     end
 
-    update_column(:total, value_total)
+    update_column(:subtotal, value_total)
   end
 
   private

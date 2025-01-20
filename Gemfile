@@ -14,6 +14,9 @@ gem "bcrypt"
 gem "jwt"
 gem 'state_machines'
 gem 'state_machines-activerecord'
+gem 'awesome_print'
+gem 'pry'
+gem 'httparty'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
