@@ -23,7 +23,7 @@ gem 'pry'
 gem 'httparty'
 
 group :development, :test do
-  gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem "debug"
   gem 'rspec-rails', '~> 7.0.0'
   gem 'shoulda-matchers'
 end

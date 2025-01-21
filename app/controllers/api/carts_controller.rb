@@ -49,14 +49,13 @@ class Api::CartsController < ApplicationController
   #   }
   # }
   def update
+    return error_user_current if @cart.try(:user) != @user && @cart.user.present?
+
+    @cart.update(user: @user) if @user.present? && @cart.user.blank?
+
     product_and_quantity = cart_params[:cart_products_attributes].pluck(:product_id, :quantidade_produto_carrinho)
 
     return if product_and_quantity.blank?
-    return verify_user_current if @cart.user != @user
-
-    if @user.present? && @cart.user.blank?
-      @cart.update(user: @user)
-    end
 
     if @cart.save
       @cart.save_products(product_and_quantity)
@@ -69,16 +68,14 @@ class Api::CartsController < ApplicationController
 
   # GET /api/carts/ID
   def show
-    return verify_user_current if @cart.try(:user) != @user
+    return error_user_current if @cart.try(:user) != @user && @cart.user.present?
 
     render json: @cart, serializer: CartSerializer
   end
 
   private
 
-  def verify_user_current
-    return render json: @cart if @cart.user.blank?
-
+  def error_user_current
     render json: { error: 'Você só pode ver/alterar carrinhos que estão na sua conta!' }, status: :unauthorized
   end
 

@@ -19,3 +19,5 @@ EXPOSE 3000
 
 # Comando para iniciar o servidor Rails
 CMD ["rails", "server", "-b", "0.0.0.0"]
+
+USER cprieto

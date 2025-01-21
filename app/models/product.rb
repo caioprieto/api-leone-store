@@ -2,7 +2,6 @@ class Product < ApplicationRecord
   belongs_to :category
 
   has_one_attached :image
-
   has_many :cart_products, class_name: '::CartProduct', dependent: :destroy
 
   validates :name, :code, presence: true

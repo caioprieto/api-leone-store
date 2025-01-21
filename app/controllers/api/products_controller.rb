@@ -41,7 +41,11 @@ class Api::ProductsController < ApplicationController
     @product.image.attach(params[:image])
 
     if @product.image.attached?
-      render json: { message: 'Imagem salva com sucesso!', image_url: url_for(@product.image) }, status: :created
+      image_url = url_for(@product.image)
+
+      @product.update(image_url: image_url)
+
+      render json: { message: 'Imagem salva com sucesso!', image_url: image_url }, status: :created
     else
       render json: { error: 'Falhou ao salvar a imagem!' }, status: :unprocessable_entity
     end
