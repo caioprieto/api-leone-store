@@ -2,9 +2,13 @@ source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "2.7.6"
-
 gem "rails", "~> 7.0.8", ">= 7.0.8.6"
-gem "sqlite3", "~> 1.4"
+
+# BD Antigo
+# gem "sqlite3", "~> 1.4"
+
+# BD NOVO
+gem "pg", "~> 1.4"
 gem "puma", "~> 5.0"
 gem "active_model_serializers", "~> 0.10.14"
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]

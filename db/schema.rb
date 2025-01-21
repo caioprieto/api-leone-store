@@ -1,16 +1,6 @@
-# This file is auto-generated from the current state of the database. Instead
-# of editing this file, please use the migrations feature of Active Record to
-# incrementally modify your database, and then regenerate this schema definition.
-#
-# This file is the source Rails uses to define your schema when running `bin/rails
-# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
-# be faster and is potentially less error prone than running all of your
-# migrations from scratch. Old migrations may fail to apply correctly if those
-# migrations use external dependencies or application code.
-#
-# It's strongly recommended that you check this file into your version control system.
-
 ActiveRecord::Schema[7.0].define(version: 2025_01_21_181118) do
+  enable_extension "plpgsql"
+
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -59,8 +49,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_21_181118) do
   end
 
   create_table "cart_products", force: :cascade do |t|
-    t.integer "cart_id", null: false
-    t.integer "product_id", null: false
+    t.bigint "cart_id", null: false
+    t.bigint "product_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "quantidade_produto_carrinho"
@@ -73,7 +63,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_21_181118) do
     t.string "status", default: "pending", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
+    t.bigint "user_id"
     t.decimal "subtotal"
     t.decimal "total"
     t.index ["user_id"], name: "index_carts_on_user_id"
@@ -87,12 +77,12 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_21_181118) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.integer "cart_id"
+    t.bigint "cart_id"
     t.string "status", default: "pending", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "address_id"
-    t.integer "user_id"
+    t.bigint "address_id"
+    t.bigint "user_id"
     t.index ["address_id"], name: "index_orders_on_address_id"
     t.index ["cart_id"], name: "index_orders_on_cart_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
@@ -110,7 +100,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_21_181118) do
     t.integer "quantity", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "category_id", null: false
+    t.bigint "category_id", null: false
     t.decimal "preço_desconto"
     t.decimal "preço_custo"
     t.decimal "preço_final"
