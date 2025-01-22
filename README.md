@@ -1,24 +1,13 @@
-# README
+# API Leone
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
+* Ruby ruby 2.7.6p219
 
 * Configuration
 
-* Database creation
+* PostgreSQL
 
-* Database initialization
+* RSpec, 
 
-* How to run the test suite
+* Subir o server - docker-compose run --service-ports app rails server -b 0.0.0.0
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Calcular CEP, Calcular Frete, Integração com o ERP da Bling, API de pagamento...
