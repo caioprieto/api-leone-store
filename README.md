@@ -1,13 +1,10 @@
 # API Leone
 
 * Ruby ruby 2.7.6p219
-
-* Configuration
-
+* Rails 7.0.8.6
 * PostgreSQL
-
-* RSpec, 
-
-* Subir o server - docker-compose run --service-ports app rails server -b 0.0.0.0
-
-* Calcular CEP, Calcular Frete, Integração com o ERP da Bling, API de pagamento...
+* Front-end Desacoplado em React
+* Gems Principais: Rspec, Puma, StateMachine, ActiveModelSerializers, JWT
+* Calcular CEP, Calcular Frete, Integração com o ERP da Bling, API de pagamento
+* Subir o server:
+   - docker-compose run --service-ports app rails server -b 0.0.0.0
