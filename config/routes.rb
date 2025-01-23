@@ -7,15 +7,20 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :carts, only: [:index, :show, :create, :update]
-    resources :users, only: [:create, :login]
-    resources :categories, only: [:index]
+    resources :users, only: [:create, :login] do
+      collection do
+        get :user_carts
+      end
+    end
 
     resources :orders, only: [:index, :create, :update, :show] do
       member do
         post :confirmar
       end
     end
+
+    resources :carts, only: [:index, :show, :create, :update]
+    resources :categories, only: [:index]
   end
 
   post '/login', to: "api/users#login"
