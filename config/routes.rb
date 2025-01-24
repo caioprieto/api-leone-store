@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
     resources :users, only: [:create, :login] do
       collection do
-        get :user_carts
+        get :list_orders
       end
     end
 

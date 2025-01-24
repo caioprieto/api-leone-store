@@ -18,9 +18,9 @@ gem "bcrypt"
 gem "jwt"
 gem 'state_machines'
 gem 'state_machines-activerecord'
-gem 'awesome_print'
 gem 'pry'
 gem 'httparty'
+gem "net-http"
 
 group :development, :test do
   gem "debug"
@@ -29,5 +29,6 @@ group :development, :test do
 end
 
 group :development do
+  gem 'awesome_print'
   gem "faker", "~> 3.4"
 end

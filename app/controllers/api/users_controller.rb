@@ -1,4 +1,6 @@
 class Api::UsersController < ApplicationController
+  before_action :authorized_user, only: %i[list_orders]
+
   def create
     @user = ::User.create(user_params)
 
@@ -19,6 +21,12 @@ class Api::UsersController < ApplicationController
     else
       render json: {error: 'Úsuario ou senha inválidos'}, status: :unprocessable_entity
     end
+  end
+
+  def list_orders
+    user_orders = @user.orders
+
+    render json: user_orders, status: :ok
   end
 
   private
