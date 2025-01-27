@@ -13,10 +13,6 @@ Rails.application.configure do
   config.active_support.report_deprecations = false
   config.log_formatter = ::Logger::Formatter.new
 
-  config.hosts << "api-leone-store-1.onrender.com"
-  config.hosts << "api-leone-store.onrender.com"
-
-
   if ENV["RAILS_LOG_TO_STDOUT"].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
