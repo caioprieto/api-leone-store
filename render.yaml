@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: ecommerce-api
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    envVars:
+      - key: DATABASE_URL
+        value: postgresql://caioprieto:00Don6ky7akP55yd6hQrF6pjGjrsqQtt@dpg-cubttv5ds78s73brr270-a/leone_w8t5
+      - key: RAILS_MASTER_KEY
+        sync: false
