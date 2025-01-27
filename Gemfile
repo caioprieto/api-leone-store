@@ -21,6 +21,7 @@ gem 'state_machines-activerecord'
 gem 'pry'
 gem 'httparty'
 gem "net-http"
+gem 'rack-cors'
 
 group :development, :test do
   gem "debug"

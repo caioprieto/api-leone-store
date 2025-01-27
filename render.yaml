@@ -10,4 +10,6 @@ services:
         value: postgresql://caioprieto:00Don6ky7akP55yd6hQrF6pjGjrsqQtt@dpg-cubttv5ds78s73brr270-a/leone_w8t5
       - key: RAILS_MASTER_KEY
         sync: false
+      - key: RAILS_ENV
+        value: production
     startCommand: bash -c "RAILS_ENV=production bin/rails db:migrate && RAILS_ENV=production bin/rails s -b '0.0.0.0'"

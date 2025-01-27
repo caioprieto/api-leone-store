@@ -11,6 +11,8 @@ WORKDIR /app
 COPY Gemfile Gemfile.lock ./
 RUN bundle install
 
+ENV RAILS_ENV=production
+
 # Copiar a aplicação
 COPY . .
 

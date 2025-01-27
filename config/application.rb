@@ -12,5 +12,6 @@ module ApiLeoneStore
 
     config.hosts << "api-leone-store-1.onrender.com"
     config.hosts << "api-leone-store.onrender.com"
+    config.force_ssl = true
   end
 end
