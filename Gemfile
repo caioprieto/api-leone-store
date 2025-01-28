@@ -22,11 +22,12 @@ gem 'pry'
 gem 'httparty'
 gem "net-http"
 gem 'rack-cors'
+gem "debug"
 
 group :development, :test do
-  gem "debug"
   gem 'rspec-rails', '~> 7.0.0'
   gem 'shoulda-matchers'
+  gem 'dotenv-rails'
 end
 
 group :development do

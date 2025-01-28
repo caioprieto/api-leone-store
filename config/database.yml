@@ -19,3 +19,4 @@ production:
   <<: *default
   database: ecommerce_production
   host: ecommerce_postgres
+  url: <%= ENV['DATABASE_URL'] %>
