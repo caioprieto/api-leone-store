@@ -20,4 +20,5 @@ COPY . .
 EXPOSE 3000
 
 # Comando para iniciar o servidor Rails
-CMD ["bash", "-c", "rm -f tmp/pids/server.pid && rails server -b 0.0.0.0 -p 3000"]
+CMD ["rails", "server", "-b", "0.0.0.0"]
+# CMD ["bash", "-c", "rm -f tmp/pids/server.pid && rails server -b 0.0.0.0 -p 3000"]
