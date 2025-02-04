@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     end
 
     resources :carts, only: [:index, :show, :create, :update]
-    resources :categories, only: [:index]
+    resources :categories, only: [:index, :create]
   end
 
   post '/login', to: "api/users#login"
