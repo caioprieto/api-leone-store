@@ -71,7 +71,7 @@ GEM
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
-    awesome_print (1.9.2)
+    awesome_print (1.7.0)
     base64 (0.2.0)
     bcrypt (3.1.20)
     bootsnap (1.18.4)
@@ -234,7 +234,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers (~> 0.10.14)
-  awesome_print
+  awesome_print (~> 1.7.0)
   bcrypt
   bootsnap
   debug

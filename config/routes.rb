@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
     resources :users, only: [:create, :login] do
       collection do
+        get :details
         get :list_orders
       end
     end

@@ -23,6 +23,7 @@ gem 'httparty'
 gem "net-http"
 gem 'rack-cors'
 gem "debug"
+gem 'awesome_print', '~> 1.7.0'
 
 group :development, :test do
   gem 'rspec-rails', '~> 7.0.0'
@@ -31,6 +32,5 @@ group :development, :test do
 end
 
 group :development do
-  gem 'awesome_print'
   gem "faker", "~> 3.4"
 end

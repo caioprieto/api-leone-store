@@ -1,4 +1,3 @@
-# if Rails.env.development?
-#   require 'awesome_print'
-#   AwesomePrint.irb!
-# end
+require 'awesome_print'
+
+AwesomePrint.irb! if defined?(Rails::Console)

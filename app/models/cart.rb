@@ -8,15 +8,13 @@ class Cart < ApplicationRecord
   accepts_nested_attributes_for :cart_products, allow_destroy: true
 
   def save_products(product_and_quantity)
-    ActiveRecord::Base.transaction do
-      product_and_quantity.each do |product_id, quantity|
-        cart_product = cart_products.find_or_initialize_by(product_id: product_id)
-        cart_product.update!(quantidade_produto_carrinho: quantity)
-      end
-
-      remove_product_without_quantity
-      calculate_subtotal
+    product_and_quantity.each do |product_id, quantity|
+      cart_product = cart_products.find_or_initialize_by(product_id: product_id)
+      cart_product.update!(quantidade_produto_carrinho: quantity)
     end
+
+    remove_product_without_quantity
+    calculate_subtotal
   end
 
   def calculate_subtotal

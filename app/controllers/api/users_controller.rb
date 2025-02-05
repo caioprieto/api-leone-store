@@ -1,5 +1,5 @@
 class Api::UsersController < ApplicationController
-  before_action :authorized_user, only: %i[list_orders]
+  before_action :authorized_user, only: %i[list_orders details]
 
   def create
     @user = ::User.create(user_params)
@@ -24,9 +24,17 @@ class Api::UsersController < ApplicationController
   end
 
   def list_orders
+    return render json: { message: 'Você precisa estar logado' }, status: :unprocessable_entity if @user.blank?
+
     user_orders = @user.orders
 
     render json: user_orders, status: :ok
+  end
+
+  def details
+    return render json: { message: 'Você precisa estar logado' }, status: :unprocessable_entity if @user.blank?
+
+    render json: @user, status: :ok
   end
 
   private
