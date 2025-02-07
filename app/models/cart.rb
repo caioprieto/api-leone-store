@@ -8,13 +8,24 @@ class Cart < ApplicationRecord
   accepts_nested_attributes_for :cart_products, allow_destroy: true
 
   def save_products(product_and_quantity)
-    product_and_quantity.each do |product_id, quantity|
-      cart_product = cart_products.find_or_initialize_by(product_id: product_id)
-      cart_product.update!(quantidade_produto_carrinho: quantity)
-    end
-
+    set_product_and_quantity(product_and_quantity)
     remove_product_without_quantity
     calculate_subtotal
+  end
+
+  private
+
+  def set_product_and_quantity(product_and_quantity)
+    product_and_quantity.each do |product_id, quantity|
+      if product_exist(product_id)
+        cart_product = cart_products.find_or_initialize_by(product_id: product_id)
+        cart_product.update!(quantidade_produto_carrinho: quantity)
+      end
+    end
+  end
+
+  def product_exist(product_id)
+    ::Product.find_by(id: product_id).present?
   end
 
   def calculate_subtotal
@@ -26,8 +37,6 @@ class Cart < ApplicationRecord
 
     update_column(:subtotal, value_total)
   end
-
-  private
 
   def remove_product_without_quantity
     cart_products.where(quantidade_produto_carrinho: 0).destroy_all

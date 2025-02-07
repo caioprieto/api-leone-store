@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :users, only: [:create, :login] do
+    resources :users, only: [:create] do
       collection do
         get :details
         get :list_orders
@@ -20,12 +20,13 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :admins, only: [:create]
     resources :carts, only: [:index, :show, :create, :update]
     resources :categories, only: [:index, :create]
   end
 
   post '/login', to: "api/users#login"
-  get 'address/search', to: 'api/address#search'
+  post '/admin_login', to: "api/admins#login"
 
-  resources :admins
+  get 'address/search', to: 'api/address#search'
 end

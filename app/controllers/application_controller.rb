@@ -27,4 +27,17 @@ class ApplicationController < ActionController::API
   def authorize
     render json: {message: 'Você precisa estar logado'}, status: :unauthorized unless authorized_user
   end
+
+  def set_admin
+    decoded_token = decode_token()
+
+    if decoded_token
+      admin_id = decoded_token[0]['admin_id']
+      @admin = Admin.find_by(id: admin_id)
+    end
+  end
+
+  def verify_admin
+    render json: { message: "Você precisa ser administrador" } if @admin.blank?
+  end
 end

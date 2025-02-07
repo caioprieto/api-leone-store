@@ -1,4 +1,7 @@
 class Api::CategoriesController < ApplicationController
+  before_action :set_admin, only: [:create]
+  before_action :verify_admin, only: [:create]
+
   def index
     @categories = Category.all
 
