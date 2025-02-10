@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Calça Cargo",
+    "code": 2304,
+    "category_id": 1,
+    "price_final": 100.00
+  },
+  {
+    "name": "Cropped Laís",
+    "code": 2305,
+    "category_id": 1,
+    "price_final": 200.00
+  },
+  {
+    "name": "Cropped Sara",
+    "code": 2305,
+    "category_id": 1,
+    "price_final": 80.00
+  },
+  {
+    "name": "Cropped Vivian",
+    "code": 2305,
+    "category_id": 1,
+    "price_final": 80.00
+  },
+  {
+    "name": "Cropped Vanessa",
+    "code": 2305,
+    "category_id": 1,
+    "price_final": 80.00
+  }
+]

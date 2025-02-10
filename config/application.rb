@@ -9,6 +9,7 @@ module ApiLeoneStore
     config.load_defaults 7.0
     config.api_only = true
     config.active_storage.analyzers = []
+    config.active_job.queue_adapter = :sidekiq
 
     # Comentar quando subir para produção
     config.hosts.clear if Rails.env.production?

@@ -24,6 +24,8 @@ gem "net-http"
 gem 'rack-cors'
 gem "debug"
 gem 'awesome_print', '~> 1.7.0'
+gem 'sidekiq'
+gem 'redis'
 
 group :development, :test do
   gem 'rspec-rails', '~> 7.0.0'
