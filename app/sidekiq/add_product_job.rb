@@ -9,12 +9,12 @@ class AddProductJob
 
       unless existing_product
         Product.create(name: name, category_id: "#{product['category_id']}", code: code, preço_final: "#{product['preço_final']}")
-        message
+        message(name)
       end
     end
   end
 
-  def message
+  def message(name)
     exclamação = "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 
     puts "#{exclamação}#{exclamação} #{name} #{exclamação}#{exclamação}"

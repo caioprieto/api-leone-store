@@ -196,5 +196,17 @@
     "code": 3274,
     "category_id": 7,
     "preço_final": 896
+  },
+  {
+    "name": "Produto 1739293717",
+    "code": 3095,
+    "category_id": 7,
+    "preço_final": 288
+  },
+  {
+    "name": "Produto 1739294193",
+    "code": 3092,
+    "category_id": 7,
+    "preço_final": 461
   }
 ]
