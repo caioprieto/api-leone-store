@@ -1,8 +1,5 @@
 class Api::CartsController < ApplicationController
-  before_action :set_cart, only: %i[show update]
-  before_action :authorized_user, only: %i[update create show]
 
-  # POST /api/carts
     # {
     #   "cart": {
     #     "cart_products_attributes": [
@@ -17,37 +14,25 @@ class Api::CartsController < ApplicationController
     #     ]
     #   }
     # }
+
+  before_action :set_cart, only: %i[show update]
+  before_action :authorized_user, only: %i[update create show]
+
+  # POST /api/carts
   def create
     product_and_quantity = cart_params[:cart_products_attributes].pluck(:product_id, :quantidade_produto_carrinho)
-
     return if product_and_quantity.blank?
 
     @cart = @user ? Cart.new(user: @user) : Cart.new
 
-    if @cart.save
-      @cart.save_products(product_and_quantity)
-
+    if @cart.add_products(product_and_quantity) && @cart.save!
       render json: @cart, status: :created, serializer: CartSerializer
     else
-      render json: @cart.errors, status: :unprocessable_entity
+      render json: { errors: @cart.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
   # PATCH /api/carts/ID
-  # {
-  #   "cart": {
-  #     "cart_products_attributes": [
-  #       {
-  #         "product_id": 1,
-  #         "quantidade_produto_carrinho": 1
-  #       },
-  #       {
-  #         "product_id": 2,
-  #         "quantidade_produto_carrinho": 1
-  #       }
-  #     ]
-  #   }
-  # }
   def update
     return error_user_current if @cart.try(:user) != @user && @cart.user.present?
 
@@ -57,12 +42,10 @@ class Api::CartsController < ApplicationController
 
     return if product_and_quantity.blank?
 
-    if @cart.save
-      @cart.save_products(product_and_quantity)
-
+    if @cart.add_products(product_and_quantity) && @cart.save!
       render json: @cart, status: :ok, serializer: CartSerializer
     else
-      render json: @cart.errors, status: :unprocessable_entity
+      render json: { errors: @cart.errors.full_messages }, status: :unprocessable_entity
     end
   end
 

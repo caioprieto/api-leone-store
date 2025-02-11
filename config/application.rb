@@ -1,8 +1,8 @@
 require_relative "boot"
-
 require "rails/all"
 
 Bundler.require(*Rails.groups)
+ENV['REDIS_URL'] = 'redis://redis:6379/0'
 
 module ApiLeoneStore
   class Application < Rails::Application

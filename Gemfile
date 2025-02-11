@@ -25,6 +25,7 @@ gem 'rack-cors'
 gem "debug"
 gem 'awesome_print', '~> 1.7.0'
 gem 'sidekiq'
+gem 'sidekiq-cron'
 gem 'redis'
 
 group :development, :test do

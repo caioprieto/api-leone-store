@@ -1,4 +1,9 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
+  mount Sidekiq::Web => "/sidekiq"
+  Sidekiq::Web.use Rack::Session::Cookie, secret: Rails.application.credentials.secret_key_base
+
   namespace :api, defaults: { format: :json } do
     resources :products do
       member do

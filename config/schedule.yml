@@ -1,0 +1,9 @@
+# Cada 5 minutos
+sincroniza_product_job:
+  cron: "*/5 * * * *"
+  class: "SincronizaProductJob"
+
+# Cada 8 minutos
+mock_product_job:
+  cron: "*/8 * * * *"
+  class: "MockProductJob"

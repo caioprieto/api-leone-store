@@ -5,6 +5,7 @@ class Product < ApplicationRecord
   has_many :cart_products, class_name: '::CartProduct', dependent: :destroy
 
   validates :name, :code, :preço_final, presence: true
+  validates_uniqueness_of :code, message: 'já está em uso'
 
   scope :search, -> (term) { where('LOWER(name) LIKE ?', "%#{term.downcase}%") if term.present? }
   scope :order_by_name, -> { order(:id) }

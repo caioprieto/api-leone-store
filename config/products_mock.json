@@ -3,30 +3,198 @@
     "name": "Calça Cargo",
     "code": 2304,
     "category_id": 1,
-    "price_final": 100.00
+    "preço_final": 100.0
   },
   {
     "name": "Cropped Laís",
     "code": 2305,
     "category_id": 1,
-    "price_final": 200.00
+    "preço_final": 200.0
   },
   {
     "name": "Cropped Sara",
-    "code": 2305,
+    "code": 2306,
     "category_id": 1,
-    "price_final": 80.00
+    "preço_final": 80.0
   },
   {
     "name": "Cropped Vivian",
-    "code": 2305,
+    "code": 2307,
     "category_id": 1,
-    "price_final": 80.00
+    "preço_final": 80.0
   },
   {
     "name": "Cropped Vanessa",
-    "code": 2305,
+    "code": 2308,
     "category_id": 1,
-    "price_final": 80.00
+    "preço_final": 80.0
+  },
+  {
+    "name": "Cropped Caio",
+    "code": 1010,
+    "category_id": 2,
+    "preço_final": 200.0
+  },
+  {
+    "name": "Novo produto 1739206713",
+    "code": 3677,
+    "category_id": 7,
+    "preço_final": 158
+  },
+  {
+    "name": "Produto 1739209212",
+    "code": 3971,
+    "category_id": 7,
+    "preço_final": 949
+  },
+  {
+    "name": "Produto 1739209690",
+    "code": 3629,
+    "category_id": 7,
+    "preço_final": 410
+  },
+  {
+    "name": "Produto 1739210193",
+    "code": 3176,
+    "category_id": 7,
+    "preço_final": 108
+  },
+  {
+    "name": "Produto 1739210429",
+    "code": 3548,
+    "category_id": 7,
+    "preço_final": 787
+  },
+  {
+    "name": "Produto 1739210892",
+    "code": 3570,
+    "category_id": 7,
+    "preço_final": 751
+  },
+  {
+    "name": "Produto 1739211395",
+    "code": 3587,
+    "category_id": 7,
+    "preço_final": 374
+  },
+  {
+    "name": "Produto 1739211848",
+    "code": 3481,
+    "category_id": 7,
+    "preço_final": 254
+  },
+  {
+    "name": "Produto 1739212342",
+    "code": 3320,
+    "category_id": 7,
+    "preço_final": 441
+  },
+  {
+    "name": "Produto 1739212835",
+    "code": 3835,
+    "category_id": 7,
+    "preço_final": 111
+  },
+  {
+    "name": "Produto 1739213298",
+    "code": 3827,
+    "category_id": 7,
+    "preço_final": 702
+  },
+  {
+    "name": "Produto 1739213766",
+    "code": 3077,
+    "category_id": 7,
+    "preço_final": 762
+  },
+  {
+    "name": "Produto 1739214007",
+    "code": 3181,
+    "category_id": 7,
+    "preço_final": 664
+  },
+  {
+    "name": "Produto 1739214499",
+    "code": 3292,
+    "category_id": 7,
+    "preço_final": 840
+  },
+  {
+    "name": "Produto 1739214982",
+    "code": 3807,
+    "category_id": 7,
+    "preço_final": 130
+  },
+  {
+    "name": "Produto 1739215446",
+    "code": 3749,
+    "category_id": 7,
+    "preço_final": 812
+  },
+  {
+    "name": "Produto 1739215938",
+    "code": 3516,
+    "category_id": 7,
+    "preço_final": 830
+  },
+  {
+    "name": "Produto 1739216408",
+    "code": 3616,
+    "category_id": 7,
+    "preço_final": 270
+  },
+  {
+    "name": "Produto 1739216913",
+    "code": 3974,
+    "category_id": 7,
+    "preço_final": 641
+  },
+  {
+    "name": "Produto 1739217396",
+    "code": 3692,
+    "category_id": 7,
+    "preço_final": 660
+  },
+  {
+    "name": "Produto 1739217616",
+    "code": 3284,
+    "category_id": 7,
+    "preço_final": 574
+  },
+  {
+    "name": "Produto 1739218097",
+    "code": 3713,
+    "category_id": 7,
+    "preço_final": 844
+  },
+  {
+    "name": "Produto 1739218579",
+    "code": 3958,
+    "category_id": 7,
+    "preço_final": 730
+  },
+  {
+    "name": "Produto 1739219071",
+    "code": 3548,
+    "category_id": 7,
+    "preço_final": 341
+  },
+  {
+    "name": "Produto 1739219548",
+    "code": 3823,
+    "category_id": 7,
+    "preço_final": 546
+  },
+  {
+    "name": "Produto 1739220019",
+    "code": 3333,
+    "category_id": 7,
+    "preço_final": 889
+  },
+  {
+    "name": "Produto 1739220515",
+    "code": 3274,
+    "category_id": 7,
+    "preço_final": 896
   }
 ]
