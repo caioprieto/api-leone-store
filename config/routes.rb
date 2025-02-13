@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   post '/login', to: "api/users#login"
   post '/admin_login', to: "api/admins#login"
   post '/reload_products', to: "api/config#reload_products"
+  post '/calculate_freight', to: "api/freights#calculate"
 
   get 'address/search', to: 'api/address#search'
 end

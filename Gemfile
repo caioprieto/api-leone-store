@@ -27,13 +27,7 @@ gem 'awesome_print', '~> 1.7.0'
 gem 'sidekiq'
 gem 'sidekiq-cron'
 gem 'redis'
-
-group :development, :test do
-  gem 'rspec-rails', '~> 7.0.0'
-  gem 'shoulda-matchers'
-  gem 'dotenv-rails'
-end
-
-group :development do
-  gem "faker", "~> 3.4"
-end
+gem 'dotenv-rails'
+gem 'rspec-rails', '~> 7.0.0'
+gem 'shoulda-matchers'
+gem "faker", "~> 3.4"
