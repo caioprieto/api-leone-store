@@ -9,7 +9,6 @@ class MockProductJob
     new_product = {
       "name" => "Produto #{Time.now.to_i}",
       "code" => rand(3000..4000),
-      "category_id" => Category.last.id,
       "preço_final" => rand(100..1000)
     }
 

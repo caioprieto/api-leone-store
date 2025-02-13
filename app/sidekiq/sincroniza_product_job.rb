@@ -3,7 +3,7 @@ class SincronizaProductJob
   require 'json'
 
   def perform
-    AddProductJob.perform_async(new_products)
+    AddProductService.new(new_products)
   end
 
   def new_products
