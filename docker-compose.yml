@@ -12,6 +12,9 @@ services:
     depends_on:
       - db
       - redis
+    environment:
+      - RAILS_ENV=production
+      - DATABASE_URL=postgres://caioprieto:ca23io04@ecommerce_postgres:5432/ecommerce
     user: root
 
   db:
@@ -32,12 +35,6 @@ services:
     restart: always
     ports:
       - "6379:6379"
-
-  # redis:
-  #   image: redis:latest
-  #   container_name: ecommerce_redis
-  #   ports:
-  #     - "6379:6379"
 
 volumes:
   postgres_data:
