@@ -38,6 +38,6 @@ class ApplicationController < ActionController::API
   end
 
   def verify_admin
-    render json: { message: "Você precisa ser administrador" } if @admin.blank?
+    render json: { message: "Você precisa ser administrador" } unless set_admin
   end
 end

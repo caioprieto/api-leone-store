@@ -1,8 +1,10 @@
 class Cart < ApplicationRecord
   belongs_to :user, class_name: '::User', optional: true
+  belongs_to :cupom, class_name: '::Cupom', optional: true
 
   has_many :cart_products, class_name: '::CartProduct', dependent: :destroy
   has_many :products, through: :cart_products
+
   has_one :order, class_name: '::Order'
 
   accepts_nested_attributes_for :cart_products, allow_destroy: true
@@ -32,7 +34,9 @@ class Cart < ApplicationRecord
   end
 
   def calculate_values
+    add_cupom
     calculate_subtotal
+    calculate_total
   end
 
   def calculate_subtotal
@@ -47,5 +51,15 @@ class Cart < ApplicationRecord
 
   def remove_product_without_quantity
     cart_products.where(quantidade_produto_carrinho: 0).destroy_all
+  end
+
+  def add_cupom
+    return self.cupom_value = 0 if cupom.blank? || cupom.start_date > Time.zone.now || cupom.final_date < Time.zone.now
+
+    self.cupom_value = cupom.desconto
+  end
+
+  def calculate_total
+    self.total = subtotal - cupom_value
   end
 end

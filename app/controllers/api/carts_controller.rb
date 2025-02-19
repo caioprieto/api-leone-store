@@ -15,7 +15,7 @@ class Api::CartsController < ApplicationController
     #   }
     # }
 
-  before_action :set_cart, only: %i[show update]
+  before_action :set_cart, only: %i[show update add_cupom]
   before_action :authorized_user, only: %i[update create show]
 
   # POST /api/carts
@@ -23,7 +23,11 @@ class Api::CartsController < ApplicationController
     product_and_quantity = cart_params[:cart_products_attributes].pluck(:product_id, :quantidade_produto_carrinho)
     return if product_and_quantity.blank?
 
-    @cart = @user ? Cart.new(user: @user) : Cart.new
+    if @user.try(:cart).present?
+      @cart = @user.try(:cart)
+    else
+      @cart = @user ? Cart.new(user: @user) : Cart.new
+    end
 
     if @cart.add_products(product_and_quantity) && @cart.save!
       render json: @cart, status: :created, serializer: CartSerializer
@@ -34,13 +38,12 @@ class Api::CartsController < ApplicationController
 
   # PATCH /api/carts/ID
   def update
-    return error_user_current if @cart.try(:user) != @user && @cart.user.present?
-
-    @cart.update(user: @user) if @user.present? && @cart.user.blank?
-
     product_and_quantity = cart_params[:cart_products_attributes].pluck(:product_id, :quantidade_produto_carrinho)
-
     return if product_and_quantity.blank?
+
+    if @user.try(:cart).present?
+      @cart = @user.try(:cart)
+    end
 
     if @cart.add_products(product_and_quantity) && @cart.save!
       render json: @cart, status: :ok, serializer: CartSerializer
@@ -54,6 +57,14 @@ class Api::CartsController < ApplicationController
     return error_user_current if @cart.try(:user) != @user && @cart.user.present?
 
     render json: @cart, serializer: CartSerializer
+  end
+
+  def add_cupom
+    return render json: { error: "Cupom já foi adicionado" } if @cart.cupom.present?
+    @cupom = ::Cupom.where(name: params[:cupom_name]).last
+    return render json: { error: "Cupom não existe" } if @cupom.blank?
+    @cart.update(cupom: @cupom)
+    render json: @cart, status: :ok
   end
 
   private

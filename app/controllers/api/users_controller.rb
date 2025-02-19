@@ -1,5 +1,5 @@
 class Api::UsersController < ApplicationController
-  before_action :authorized_user, only: %i[list_orders details]
+  before_action :authorized_user, only: %i[list_orders details cart_active]
 
   def create
     @user = ::User.create(user_params)
@@ -35,6 +35,12 @@ class Api::UsersController < ApplicationController
     return render json: { message: 'Você precisa estar logado' }, status: :unprocessable_entity if @user.blank?
 
     render json: @user, status: :ok
+  end
+
+  def cart_active
+    return render json: { error: "Não tem carrinho ativo" } if @user.blank? || @user.try(:cart).blank?
+
+    render json: @user.cart, status: :ok, serializer: CartSerializer
   end
 
   private

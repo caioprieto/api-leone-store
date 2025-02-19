@@ -25,10 +25,16 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :carts, only: [:index, :show, :create, :update] do
+      member do
+        post :add_cupom
+      end
+    end
+
     resources :admins, only: [:create]
-    resources :carts, only: [:index, :show, :create, :update]
     resources :categories, only: [:index, :create]
     resources :category_products, only: [:index]
+    resources :cupoms, only: [:index, :create, :update]
   end
 
   post '/login', to: "api/users#login"
@@ -37,4 +43,5 @@ Rails.application.routes.draw do
   post '/calculate_freight', to: "api/freights#calculate"
 
   get 'address/search', to: 'api/address#search'
+  get '/cart_active', to: 'api/users#cart_active'
 end
