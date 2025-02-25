@@ -3,6 +3,20 @@ class Api::ProductsController < ApplicationController
   before_action :set_admin, only: [:create, :update, :destroy, :upload_image, :delete_image]
   before_action :verify_admin, only: [:create, :update, :destroy, :upload_image, :delete_image]
 
+  # {
+  #   "name": "Cropped Laís",
+  #   "code": "1907",
+  #   "active": true,
+  #   "quantity": 10,
+  #   "description": "nadadaa",
+  #   "preço_final": 200,
+  #   "product_sizes_attributes": {
+  #     "size": "P", "quantity": 2,
+  #     "size": "M", "quantity": 5,
+  #     "size": "G", "quantity": 3
+  #   }
+  # }
+
   def index
     @products = Product.search(params[:term]).order_by_name
 
@@ -68,6 +82,9 @@ class Api::ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:name, :code, :preço_final, :category_id, :quantity, :active)
+    params.require(:product).permit(
+      :name, :code, :preço_final, :category_id, :quantity, :active,
+      product_sizes_attributes: [:id, :size, :quantity, :_destroy]
+    )
   end
 end
