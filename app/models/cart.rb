@@ -12,27 +12,6 @@ class Cart < ApplicationRecord
   before_validation :calculate_values
   before_validation :remove_product_without_quantity
 
-  def add_products(product_and_quantity)
-    invalid_product_ids = product_and_quantity.map(&:first) - Product.where(id: product_and_quantity.map(&:first)).pluck(:id)
-
-    unless invalid_product_ids.empty?
-      errors.add(:base, "Os seguintes produtos não existem: #{invalid_product_ids.join(', ')}")
-      return false
-    end
-
-    set_product_and_quantity(product_and_quantity)
-    true
-  end
-
-  private
-
-  def set_product_and_quantity(product_and_quantity)
-    product_and_quantity.each do |product_id, quantity|
-      cart_product = cart_products.find_or_initialize_by(product_id: product_id)
-      cart_product.update!(quantidade_produto_carrinho: quantity)
-    end
-  end
-
   def calculate_values
     add_cupom
     calculate_subtotal

@@ -1,7 +1,7 @@
 class Api::OrdersController < ApplicationController
   before_action :set_order, only: [:update, :show, :confirmar]
   before_action :set_cart, only: [:create]
-  before_action :authorize, only: [:create, :update, :show]
+  before_action :verify_user, only: [:create, :update, :show]
 
   def index
     orders = Order.all

@@ -1,5 +1,5 @@
 class Api::UsersController < ApplicationController
-  before_action :authorized_user, only: %i[list_orders details cart_active]
+  before_action :set_user, only: %i[list_orders details cart_active]
 
   def create
     @user = ::User.create(user_params)

@@ -16,20 +16,14 @@ class Api::CartsController < ApplicationController
     # }
 
   before_action :set_cart, only: %i[show update add_cupom]
-  before_action :authorized_user, only: %i[update create show]
+  before_action :set_cupom, only: %i[add_cupom]
+  before_action :set_user, only: %i[update create show]
 
   # POST /api/carts
   def create
-    product_and_quantity = cart_params[:cart_products_attributes].pluck(:product_id, :quantidade_produto_carrinho)
-    return if product_and_quantity.blank?
+    @cart = resource_class.new(cart_params)
 
-    if @user.try(:cart).present?
-      @cart = @user.try(:cart)
-    else
-      @cart = @user ? Cart.new(user: @user) : Cart.new
-    end
-
-    if @cart.add_products(product_and_quantity) && @cart.save!
+    if @cart.save
       render json: @cart, status: :created, serializer: CartSerializer
     else
       render json: { errors: @cart.errors.full_messages }, status: :unprocessable_entity
@@ -38,14 +32,7 @@ class Api::CartsController < ApplicationController
 
   # PATCH /api/carts/ID
   def update
-    product_and_quantity = cart_params[:cart_products_attributes].pluck(:product_id, :quantidade_produto_carrinho)
-    return if product_and_quantity.blank?
-
-    if @user.try(:cart).present?
-      @cart = @user.try(:cart)
-    end
-
-    if @cart.add_products(product_and_quantity) && @cart.save!
+    if @cart.update(cart_params)
       render json: @cart, status: :ok, serializer: CartSerializer
     else
       render json: { errors: @cart.errors.full_messages }, status: :unprocessable_entity
@@ -54,23 +41,21 @@ class Api::CartsController < ApplicationController
 
   # GET /api/carts/ID
   def show
-    return error_user_current if @cart.try(:user) != @user && @cart.user.present?
-
     render json: @cart, serializer: CartSerializer
   end
 
   def add_cupom
-    return render json: { error: "Cupom já foi adicionado" } if @cart.cupom.present?
-    @cupom = ::Cupom.where(name: params[:cupom_name]).last
-    return render json: { error: "Cupom não existe" } if @cupom.blank?
-    @cart.update(cupom: @cupom)
-    render json: @cart, status: :ok
+    if @cart.update(cupom: @cupom)
+      render json: @cart, status: :ok
+    else
+      render json: { errors: @cart.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   private
 
-  def error_user_current
-    render json: { error: 'Você só pode ver/alterar carrinhos que estão na sua conta!' }, status: :unauthorized
+  def resource_class
+    ::Cart
   end
 
   def set_cart
@@ -81,7 +66,15 @@ class Api::CartsController < ApplicationController
     end
   end
 
+  def set_cupom
+    @cupom = ::Cupom.find_by(name: params[:cupom_name]).first
+
+    if @cupom.nil?
+      render json: { error: 'Cupom não encontrado!' }, status: :not_found
+    end
+  end
+
   def cart_params
-    params.require(:cart).permit(cart_products_attributes: [:id, :product_id, :quantidade_produto_carrinho])
+    params.require(:cart).permit(cart_products_attributes: [:product_id, :quantidade_produto_carrinho])
   end
 end
