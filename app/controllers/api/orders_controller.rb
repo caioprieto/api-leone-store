@@ -1,29 +1,4 @@
 class Api::OrdersController < ApplicationController
-  before_action :set_order, only: [:update, :show, :confirmar]
-  before_action :set_cart, only: [:create]
-  before_action :verify_user, only: [:create, :update, :show]
-
-  def index
-    orders = Order.all
-
-    render json: orders, status: :ok
-  end
-
-  # POST /api/orders
-  # {
-  #   "cart_id": 1
-  # }
-  def create
-    order = Order.new(cart: @cart, user: @user)
-
-    if order.save
-      render json: order, status: :ok
-    else
-      render json: { error: 'Carrinho já tem pedido' }, status: :unprocessable_entity
-    end
-  end
-
-  # PATCH /api/orders
   # {
   #   "cart_id": 1,
   #   "address": {
@@ -36,6 +11,27 @@ class Api::OrdersController < ApplicationController
   # 		"complemento": "Apartamento 21-c"
   #   }
   # }
+
+  before_action :set_order, only: [:update, :show, :confirmar]
+  before_action :set_cart, only: [:create]
+  before_action :verify_user, only: [:create, :update, :show]
+
+  def index
+    @orders = Order.all
+
+    render json: @orders, status: :ok
+  end
+
+  def create
+    @order = Order.new(cart: @cart, user: @user)
+
+    if @order.save
+      render json: @order, status: :ok
+    else
+      render json: { error: @order.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
   def update
     if address_params.present?
       if @order.address
@@ -50,7 +46,6 @@ class Api::OrdersController < ApplicationController
     render json: @order, status: :ok, serializer: OrderSerializer
   end
 
-  # GET /api/orders/ID
   def show
     render json: @order, status: :ok, serializer: OrderSerializer
   end
