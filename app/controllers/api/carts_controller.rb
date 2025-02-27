@@ -18,7 +18,8 @@ class Api::CartsController < ApplicationController
   before_action :set_cart, only: %i[show update add_cupom]
   before_action :set_cupom, only: %i[add_cupom]
   before_action :set_user, only: %i[update create show]
-  before_action :verify_user_with_cart, only: %i[create]
+  before_action :verify_user_with_cart, only: :create
+  before_action :allow_edit_and_show_cart, only: %i[update show]
 
   # POST /api/carts
   def create
@@ -64,7 +65,7 @@ class Api::CartsController < ApplicationController
     @cart = Cart.find_by(id: params[:id])
 
     if @cart.nil?
-      render json: { error: 'Carrinho não encontrado!' }, status: :not_found
+      render json: { error: 'Carrinho não existe!' }, status: :not_found
     end
   end
 
@@ -72,12 +73,20 @@ class Api::CartsController < ApplicationController
     @cupom = ::Cupom.find_by(name: params[:cupom_name]).first
 
     if @cupom.nil?
-      render json: { error: 'Cupom não encontrado!' }, status: :not_found
+      render json: { error: 'Cupom não existe!' }, status: :not_found
     end
   end
 
   def verify_user_with_cart
     render json: { error: "Úsuario já tem outro carrinho", cart_id: @user.cart.id }, status: :unprocessable_entity if @user.try(:cart)
+  end
+
+  def allow_edit_and_show_cart
+    message_error_cart_other_login if @cart.try(:user) != @user
+  end
+
+  def message_error_cart_other_login
+    render json: { error: "Esse carinho já está vinculado a outra conta"}, status: :unprocessable_entity
   end
 
   def cart_params
