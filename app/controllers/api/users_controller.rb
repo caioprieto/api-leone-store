@@ -38,7 +38,7 @@ class Api::UsersController < ApplicationController
   end
 
   def cart_active
-    return render json: { error: "Não tem carrinho ativo" } if @user.blank? || @user.try(:cart).blank?
+    return render json: { error: "Não tem carrinho ativo" } if @user.try(:cart).blank?
 
     render json: @user.cart, status: :ok, serializer: CartSerializer
   end

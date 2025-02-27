@@ -2,7 +2,7 @@ class Cart < ApplicationRecord
   belongs_to :user, class_name: '::User', optional: true
   belongs_to :cupom, class_name: '::Cupom', optional: true
 
-  has_many :cart_products, class_name: '::CartProduct', dependent: :destroy
+  has_many :cart_products, class_name: '::CartProduct', dependent: :destroy, inverse_of: :cart
   has_many :products, through: :cart_products
 
   has_one :order, class_name: '::Order'

@@ -18,10 +18,12 @@ class Api::CartsController < ApplicationController
   before_action :set_cart, only: %i[show update add_cupom]
   before_action :set_cupom, only: %i[add_cupom]
   before_action :set_user, only: %i[update create show]
+  before_action :verify_user_with_cart, only: %i[create]
 
   # POST /api/carts
   def create
     @cart = resource_class.new(cart_params)
+    @cart.user = @user if @user.present?
 
     if @cart.save
       render json: @cart, status: :created, serializer: CartSerializer
@@ -74,7 +76,11 @@ class Api::CartsController < ApplicationController
     end
   end
 
+  def verify_user_with_cart
+    render json: { error: "Úsuario já tem outro carrinho", cart_id: @user.cart.id }, status: :unprocessable_entity if @user.try(:cart)
+  end
+
   def cart_params
-    params.require(:cart).permit(cart_products_attributes: [:product_id, :quantidade_produto_carrinho])
+    params.require(:cart).permit(cart_products_attributes: [:id, :product_id, :quantidade_produto_carrinho])
   end
 end
