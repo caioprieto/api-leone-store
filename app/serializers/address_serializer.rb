@@ -1,3 +1,3 @@
 class AddressSerializer < ActiveModel::Serializer
-  attributes :id, :street, :cep, :state, :city, :bairro, :complemento, :number
+  attributes :id, :cep, :logradouro, :complemento, :bairro, :localidade, :uf, :estado, :ddd, :regiao
 end
