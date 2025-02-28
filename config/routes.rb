@@ -43,6 +43,6 @@ Rails.application.routes.draw do
   post '/calculate_freight', to: "api/freights#calculate"
 
   get 'address/search', to: 'api/address#search'
-  get '/cart_active', to: 'api/users#cart_active'
+  get '/active_cart', to: 'api/users#active_cart'
   get '/active_order', to: 'api/orders#active_order'
 end

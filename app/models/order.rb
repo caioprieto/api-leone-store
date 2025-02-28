@@ -7,7 +7,16 @@ class Order < ApplicationRecord
 
   validates :cart_id, uniqueness: { message: "já está associado a um pedido" }
 
+  after_save :set_values
+
   def address_present?
     address.present?
+  end
+
+  private
+
+  def set_values
+    cart.update(user: user)
+    user.update(active_order_id: id)
   end
 end

@@ -1,6 +1,5 @@
 class Api::OrdersController < ApplicationController
   # {
-  #   "cart_id": 1,
   #   "address": {
   #     "street": "Rua A",
   #     "city": "São Paulo",
@@ -14,6 +13,7 @@ class Api::OrdersController < ApplicationController
 
   before_action :set_order, only: [:update, :show, :confirmar]
   before_action :set_cart, only: [:create]
+  before_action :set_user, only: [:active_order]
   before_action :verify_user, only: [:create, :update, :show]
 
   def index
@@ -51,6 +51,8 @@ class Api::OrdersController < ApplicationController
   end
 
   def active_order
+    return render json: { error: "Não tem pedido ativo" } if @user.try(:active_order).blank?
+
     render json: @user.active_order, status: :ok
   end
 

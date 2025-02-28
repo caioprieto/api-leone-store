@@ -1,5 +1,5 @@
 class Api::UsersController < ApplicationController
-  before_action :set_user, only: %i[list_orders details cart_active]
+  before_action :set_user, only: %i[list_orders details active_cart]
 
   def create
     @user = ::User.create(user_params)
@@ -37,7 +37,7 @@ class Api::UsersController < ApplicationController
     render json: @user, status: :ok
   end
 
-  def cart_active
+  def active_cart
     return render json: { error: "Não tem carrinho ativo" } if @user.try(:cart).blank?
 
     render json: @user.cart, status: :ok, serializer: CartSerializer

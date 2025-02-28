@@ -1,6 +1,10 @@
 class Api::AddressController < ApplicationController
   include HTTParty
 
+  # {
+  #   "postal_code": "13603012"
+  # }
+
   def search
     postal_code = params[:postal_code]
     url = "https://viacep.com.br/ws/#{postal_code}/json/"
