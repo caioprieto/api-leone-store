@@ -44,4 +44,5 @@ Rails.application.routes.draw do
 
   get 'address/search', to: 'api/address#search'
   get '/cart_active', to: 'api/users#cart_active'
+  get '/active_order', to: 'api/orders#active_order'
 end

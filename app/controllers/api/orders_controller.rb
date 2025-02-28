@@ -50,6 +50,10 @@ class Api::OrdersController < ApplicationController
     render json: @order, status: :ok, serializer: OrderSerializer
   end
 
+  def active_order
+    render json: @user.active_order, status: :ok
+  end
+
   # POST /api/orders/ID/confirmar
   def confirmar
     return if @order.status == 'confirmado'

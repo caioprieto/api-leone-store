@@ -10,6 +10,4 @@ class Order < ApplicationRecord
   def address_present?
     address.present?
   end
-
-  private
 end

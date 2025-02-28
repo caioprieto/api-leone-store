@@ -21,6 +21,12 @@ class Api::CartsController < ApplicationController
   before_action :verify_user_with_cart, only: :create
   before_action :allow_edit_and_show_cart, only: %i[update show]
 
+  def index
+    @carts = Cart.all
+
+    render json: @carts, status: :ok
+  end
+
   # POST /api/carts
   def create
     @cart = resource_class.new(cart_params)
