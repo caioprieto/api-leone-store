@@ -5,14 +5,16 @@ require 'json'
 class CalculateFreightService
   API_URL = "https://sandbox.melhorenvio.com.br/api/v2/me/shipment/calculate".freeze
 
-  def initialize(cep, height, width, length, weight)
+  def initialize(cep, cart_id)
     @cep_origem = "13603-012"
     @services_quantity = 2
     @cep = cep
-    @height = height
-    @width = width
-    @length = length
-    @weight = weight
+    @cart_id = cart_id
+    @products = ::Cart.where(id: @cart_id).last.products
+    @height = @products.collect(&:height).sum
+    @width = @products.collect(&:width).sum
+    @length = @products.collect(&:length).sum
+    @weight = @products.collect(&:weight).sum
   end
 
   def call

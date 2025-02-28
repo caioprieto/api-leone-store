@@ -2,8 +2,9 @@ class Product < ApplicationRecord
   belongs_to :category
   has_one_attached :image
 
-  has_many :product_sizes, class_name: '::ProductSize', dependent: :destroy
-  has_many :sizes, through: :product_sizes
+  has_many :product_sizes, class_name: '::ProductSize', dependent: :destroy, inverse_of: :product
+  has_many :product_colors, class_name: '::ProductColor', dependent: :destroy
+  has_many :colors, through: :product_colors
 
   has_many :cart_products, class_name: '::CartProduct', dependent: :destroy
   has_many :carts, through: :cart_products
