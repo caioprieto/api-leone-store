@@ -1,17 +1,23 @@
 class Api::ProductsController < ApplicationController
+
   # {
   #   "name": "Cropped Laís",
-  #   "code": "1907",
+  #   "code": "333",
   #   "active": true,
   #   "quantity": 10,
   #   "description": "nadadaa",
   #   "preço_final": 200,
-  #   "product_sizes_attributes": {
-  #     "size": "P", "quantity": 2,
-  #     "size": "M", "quantity": 5,
-  #     "size": "G", "quantity": 3
-  #   }
+  #   "product_sizes_attributes": [
+  #     { "size": "P", "quantity": 2 },
+  #     { "size": "M", "quantity": 3 },
+  #     { "size": "G", "quantity": 3 }
+  #   ],
+  #   "product_colors_attributes": [
+  #     { "color_id": 1, "quantity": 2 },
+  #     { "color_id": 2, "quantity": 2 }
+  #   ]
   # }
+
 
   before_action :set_product, only: %i[show update destroy upload_image delete_image]
   before_action :set_admin, only: [:create, :update, :destroy, :upload_image, :delete_image]
@@ -39,7 +45,7 @@ class Api::ProductsController < ApplicationController
 
   def update
     if @product.update(product_params)
-      render json: @product
+      render json: @product, status: :ok
     else
       render json: @product.errors, status: :unprocessable_entity
     end
@@ -84,7 +90,8 @@ class Api::ProductsController < ApplicationController
   def product_params
     params.require(:product).permit(
       :name, :code, :preço_final, :category_id, :quantity, :active,
-      product_sizes_attributes: [:id, :size, :quantity, :_destroy]
+      product_sizes_attributes: %i[id size quantity _destroy],
+      product_colors_attributes: %i[id color_id quantity _destroy]
     )
   end
 end

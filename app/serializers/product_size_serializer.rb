@@ -1,3 +1,3 @@
 class ProductSizeSerializer < ActiveModel::Serializer
-  attributes :size, :quantity
+  attributes :id, :size, :quantity
 end

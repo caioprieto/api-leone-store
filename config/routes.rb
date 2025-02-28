@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     resources :categories, only: [:index, :create]
     resources :category_products, only: [:index]
     resources :cupoms, only: [:index, :create, :update]
+    resources :colors, only: [:index, :create, :update, :destroy]
   end
 
   post '/login', to: "api/users#login"

@@ -10,6 +10,7 @@ class Product < ApplicationRecord
   has_many :carts, through: :cart_products
 
   accepts_nested_attributes_for :product_sizes, allow_destroy: true
+  accepts_nested_attributes_for :product_colors, allow_destroy: true
 
   validates :name, :code, :preço_final, presence: true
   validates_uniqueness_of :code, message: 'já está em uso'
