@@ -24,7 +24,7 @@ class Api::ProductsController < ApplicationController
   before_action :verify_admin, only: [:create, :update, :destroy, :upload_image, :delete_image]
 
   def index
-    @products = Product.search(params[:term]).order_by_name
+    @products = Product.search(params[:term]).order_by_name.preload(:colors, :product_colors, :product_sizes)
 
     render json: @products
   end

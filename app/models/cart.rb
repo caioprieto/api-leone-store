@@ -7,6 +7,8 @@ class Cart < ApplicationRecord
 
   has_one :order, class_name: '::Order'
 
+  validate :not_change_cupom
+
   accepts_nested_attributes_for :cart_products, allow_destroy: true
 
   before_validation :calculate_values
@@ -40,5 +42,9 @@ class Cart < ApplicationRecord
 
   def calculate_total
     self.total = subtotal - cupom_value
+  end
+
+  def not_change_cupom
+    errors.add(:base, "Não é possível adicionar outro cupom") if cupom_id_changed? && cupom_id_was.present?
   end
 end

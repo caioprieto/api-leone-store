@@ -27,7 +27,6 @@ class Api::CartsController < ApplicationController
     render json: @carts, status: :ok
   end
 
-  # POST /api/carts
   def create
     @cart = resource_class.new(cart_params)
     @cart.user = @user if @user.present?
@@ -39,20 +38,19 @@ class Api::CartsController < ApplicationController
     end
   end
 
-  # PATCH /api/carts/ID
   def update
-    if @cart.update(cart_params)
+    if @cart.update(cart_params.merge(user_id: @user.try(:id)))
       render json: @cart, status: :ok, serializer: CartSerializer
     else
       render json: { errors: @cart.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
-  # GET /api/carts/ID
   def show
     render json: @cart, serializer: CartSerializer
   end
 
+  # POST /api/carts/ID/add_cupom
   def add_cupom
     if @cart.update(cupom: @cupom)
       render json: @cart, status: :ok
@@ -76,7 +74,7 @@ class Api::CartsController < ApplicationController
   end
 
   def set_cupom
-    @cupom = ::Cupom.find_by(name: params[:cupom_name]).first
+    @cupom = ::Cupom.find_by(name: params[:cupom_name])
 
     if @cupom.nil?
       render json: { error: 'Cupom não existe!' }, status: :not_found
@@ -88,6 +86,8 @@ class Api::CartsController < ApplicationController
   end
 
   def allow_edit_and_show_cart
+    return if @cart.try(:user).blank?
+
     message_error_cart_other_login if @cart.try(:user) != @user
   end
 
