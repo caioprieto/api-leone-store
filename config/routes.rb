@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   Sidekiq::Web.use Rack::Session::Cookie, secret: Rails.application.credentials.secret_key_base
 
   namespace :api, defaults: { format: :json } do
+    # Produtos
     resources :products do
       member do
         post :upload_image
@@ -12,6 +13,7 @@ Rails.application.routes.draw do
       end
     end
 
+    # Usúarios
     resources :users, only: [:create] do
       collection do
         get :details
@@ -19,15 +21,17 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :orders, only: [:index, :create, :update, :show] do
-      member do
-        post :confirmar
-      end
-    end
-
+    # Carrinhos
     resources :carts, only: [:index, :show, :create, :update] do
       member do
         post :add_cupom
+      end
+    end
+
+    # Pedidos
+    resources :orders, only: [:index, :create, :update, :show] do
+      member do
+        post :confirmar
       end
     end
 
